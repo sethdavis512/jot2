@@ -6,7 +6,7 @@ export async function getEvents() {
 }
 
 export async function createEvent(
-    event: Pick<Event, 'title' | 'content' | 'start' | 'end' | 'allDay'>
+    event: Pick<Event, 'name' | 'content' | 'allDay' | 'start' | 'end' | 'tags' | 'type' | 'image'>
 ) {
     return prisma.event.create({ data: event });
 }

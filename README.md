@@ -4,13 +4,31 @@
 
 ## Development
 
-From your terminal:
+**Start the app:**
 
 ```sh
 npm run dev
 ```
 
 This starts your app in development mode, rebuilding assets on file changes.
+
+**Start Prisma Studio**
+
+```sh
+npx prisma studio
+```
+
+**Prisma DB Migration**
+
+```sh
+# Create but don't run
+npx prisma migrate dev --create-only
+
+# Create and run
+npx prisma migrate dev
+```
+
+---
 
 ## Deployment
 

@@ -10,13 +10,90 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+// **********************
+// Universal Model fields
+// **********************
+// id        String   @id @default(uuid())
+// createdAt DateTime @default(now())
+// updatedAt DateTime @updatedAt
+// name      String
+// history   String // Array
+// tags      String // Array
+
 model Event {
     id        String   @id @default(uuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    title     String
+    name      String
+    history   String // Array
+    tags      String // Array
+    // – – – –
     content   String
+    allDay    Boolean
     start     DateTime
     end       DateTime
-    allDay    Boolean
+    type      String // Array – ['event', 'reminder']
+    image     String // URL?
+}
+
+model Note {
+    id             String   @id @default(uuid())
+    createdAt      DateTime @default(now())
+    updatedAt      DateTime @updatedAt
+    name           String
+    history        String // Array
+    tags           String // Array
+    // – – – –
+    content        String
+    category       String // Single
+    published      Boolean  @default(false)
+    publishedURL   String // URL
+    heroImage      String // URL?
+    thumbnailImage String // URL?
+    publishDate    DateTime
+    publishUpdated DateTime
+}
+
+model Task {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name      String
+    history   String // Array
+    tags      String // Array
+    // – – – –
+    content   String
+    status    String // Array – ['todo', 'doing', 'done']
+    dueDate   DateTime
+}
+
+model Person {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name      String
+    history   String // Array
+    tags      String // Array
+    // – – – –
+    content   String
+    firstName String
+    lastName  String
+    phone     String   @unique // phone number
+    email     String   @unique // email
+    address   String
+}
+
+model Link {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name      String
+    history   String // Array
+    tags      String // Array
+    // – – – –
+    content   String
+    url       String // URL
+    category  String // Array
+    image     String // URL?
+    published Boolean  @default(false)
 }
