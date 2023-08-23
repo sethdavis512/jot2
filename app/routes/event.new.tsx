@@ -1,5 +1,6 @@
 import { useFetcher } from "@remix-run/react";
 import styled from "styled-components";
+import TextInput from "~/components/TextInput";
 
 const Stack = styled("div")`
   display: flex;
@@ -36,10 +37,7 @@ export default function NewEventRoute() {
   return (
     <eventFetcher.Form method="post" action="/api/event/create">
       <Stack>
-        <label>
-          Title
-          <input id="name" type="text" name="name" />
-        </label>
+        <TextInput id="name" label="Title" name="name" />
         <label>
           Content
           <input id="content" type="text" name="content" />
