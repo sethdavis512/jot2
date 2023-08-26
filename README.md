@@ -1,8 +1,27 @@
-# Welcome to Remix!
+# What we're building
+
+- Private-by-default data storage
+- A web interface to create and interact with your data
+- Change history and version control for everything
+- ...
+
+| Common fields | | |
+| ----------- | ----------- | ----------- |
+| type | String[] | ['task', 'person', 'link', 'event', 'page', 'block'] |
+| id | uuid |
+| createdAt | DateTime |
+| updatedAt | DateTime |
+| name | String |
+| history | String[] | ['data_[type]_history', '[version]'] ([sqlite-history article](https://simonwillison.net/2023/Apr/15/sqlite-history/)) |
+| tags | String[] |
+
+---
+
+## Using Remix
 
 - [Remix Docs](https://remix.run/docs)
 
-## Development
+### Development
 
 **Start the app:**
 
@@ -30,7 +49,7 @@ npx prisma migrate dev
 
 ---
 
-## Deployment
+### Deployment
 
 First, build your app for production:
 
@@ -46,7 +65,7 @@ npm start
 
 Now you'll need to pick a host to deploy it to.
 
-### DIY
+#### DIY
 
 If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
 
@@ -55,7 +74,7 @@ Make sure to deploy the output of `remix build`
 - `build/`
 - `public/build/`
 
-### Using a Template
+#### Using a Template
 
 When you ran `npx create-remix@latest` there were a few choices for hosting. You can run that again to create a new project, then copy over relevant code/assets from your current app to the new project that's pre-configured for your target server.
 
