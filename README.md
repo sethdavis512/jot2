@@ -1,8 +1,9 @@
 # What we're building
 
-- Private-by-default data storage
+- Local-first, private-by-default data storage 
 - A web interface to create and interact with your data
-- Change history and version control for everything
+- Change history and version control for everything ([sqlite-history?](https://simonwillison.net/2023/Apr/15/sqlite-history/))
+- Access your data on your devices [Tailscale?](https://tailscale.com/)
 - ...
 
 | Common fields | | |
@@ -12,7 +13,7 @@
 | createdAt | DateTime |
 | updatedAt | DateTime |
 | name | String |
-| history | String[] | ['data_[type]_history', '[version]'] ([sqlite-history article](https://simonwillison.net/2023/Apr/15/sqlite-history/)) |
+| history | String[] | ['data_[type]_history', '[version]'] |
 | tags | String[] |
 
 ---
