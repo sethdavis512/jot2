@@ -1,6 +1,7 @@
 import { useFetcher } from "@remix-run/react";
 import styled from "styled-components";
 import TextInput from "~/components/TextInput";
+import { Modal } from "~/components/Modal";
 
 const Stack = styled("div")`
   display: flex;
@@ -35,37 +36,36 @@ export default function NewEventRoute() {
   const eventFetcher = useFetcher();
 
   return (
-    <eventFetcher.Form method="post" action="/api/event/create">
-      <Stack>
-        <TextInput id="name" label="Title" name="name" />
-        <label>
-          Content
-          <input id="content" type="text" name="content" />
-        </label>
-        <label>
-          <input type="checkbox" defaultChecked={false} />
-          All day
-        </label>
-        <label>
-          Start date
-          <input
-            id="start"
-            type="datetime-local"
-            name="start"
-            defaultValue={defaultStart}
-          />
-        </label>
-        <label>
-          End date
-          <input
-            id="end"
-            type="datetime-local"
-            name="end"
-            defaultValue={defaultEnd}
-          />
-        </label>
-      </Stack>
-      <button type="submit">Add</button>
-    </eventFetcher.Form>
+    <Modal isOpen={true}>
+      <eventFetcher.Form method="post" action="/api/event/create">
+        <Stack>
+          <TextInput id="name" label="Title" name="name" />
+          <TextInput id="content" label="Content" name="content" />
+          <label>
+            <input type="checkbox" defaultChecked={false} />
+            All day
+          </label>
+          <label>
+            Start date
+            <input
+              id="start"
+              type="datetime-local"
+              name="start"
+              defaultValue={defaultStart}
+            />
+          </label>
+          <label>
+            End date
+            <input
+              id="end"
+              type="datetime-local"
+              name="end"
+              defaultValue={defaultEnd}
+            />
+          </label>
+        </Stack>
+        <button type="submit">Add</button>
+      </eventFetcher.Form>
+    </Modal>
   );
 }
