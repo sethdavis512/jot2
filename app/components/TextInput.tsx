@@ -14,11 +14,16 @@ const InputField = styled("input")`
   display: block;
 `;
 
-export default function TextInput({ id, label, name, ...rest }: TextInputProps) {
+export default function TextInput({
+  id,
+  label,
+  name,
+  ...rest
+}: TextInputProps) {
   return (
     <InputLabel>
       {label}
-      <InputField id={id} type="text" name={id} {...rest} />
+      <InputField id={id} type="text" name={name} {...rest} />
     </InputLabel>
   );
 }

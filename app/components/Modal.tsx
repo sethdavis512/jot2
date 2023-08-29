@@ -1,6 +1,6 @@
 // app/components/modal.tsx
 import { Portal } from "./Portal";
-import { useNavigate } from "@remix-run/react";
+// import { useNavigate } from "@remix-run/react"; // commented out for now
 import { styled } from "styled-components";
 
 interface props {
@@ -16,8 +16,6 @@ const Overlay = styled("div")`
   right: 0;
   bottom: 0;
   left: 0;
-  /* width: 100%; */
-  /* height: 100%; */
   padding: 0%;
   margin: 0;
   overflow-y: auto;
@@ -45,10 +43,11 @@ const ModalContent = styled("div")`
   margin: 30px;
   border-radius: 8px;
   box-shadow: 1px 2px 2px gray;
+  pointer-events: all;
 `;
 
 export const Modal: React.FC<props> = ({ children, isOpen, ariaLabel }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // could this be set to return to wherever it was launched from?
   if (!isOpen) return null;
 
   return (
@@ -57,7 +56,7 @@ export const Modal: React.FC<props> = ({ children, isOpen, ariaLabel }) => {
         aria-labelledby={ariaLabel ?? "modal-title"}
         role="dialog"
         aria-modal="true"
-        onClick={() => navigate("/calendar")}
+        // onClick={() => navigate("/calendar")} // don't want this
       />
       <ModalWrapper>
         <ModalContent>

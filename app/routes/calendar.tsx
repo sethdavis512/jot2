@@ -23,11 +23,12 @@ export default function CalendarRoute() {
   const eventData = useLoaderData();
 
   const handleEventClick = (info: any): void => {
-    console.log("– – – – –");
+    console.log("– EVENT – – – –");
     console.log(info.event.name);
     console.log(info.event.extendedProps.content);
     console.log(info.event.start);
     console.log(info.event.end);
+    console.log(info);
   };
 
   const handleDateClick = (info: any): void => {

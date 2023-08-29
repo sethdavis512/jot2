@@ -25,46 +25,46 @@ model Event {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     name      String
-    history   String // Array
-    tags      String // Array
+    history   String   @default("tbd") // Array
+    tags      String? // Array
     // – – – –
-    content   String
-    allDay    Boolean
+    content   String?
+    allDay    Boolean  @default(false)
     start     DateTime
     end       DateTime
-    type      String // Array – ['event', 'reminder']
-    image     String // URL?
+    type      String? // Array – ['event', 'reminder']
+    image     String? // URL?
 }
 
 model Note {
-    id             String   @id @default(uuid())
-    createdAt      DateTime @default(now())
-    updatedAt      DateTime @updatedAt
+    id             String    @id @default(uuid())
+    createdAt      DateTime  @default(now())
+    updatedAt      DateTime  @updatedAt
     name           String
-    history        String // Array
-    tags           String // Array
+    history        String    @default("tbd") // Array
+    tags           String? // Array
     // – – – –
-    content        String
-    category       String // Single
-    published      Boolean  @default(false)
-    publishedURL   String // URL
-    heroImage      String // URL?
-    thumbnailImage String // URL?
-    publishDate    DateTime
-    publishUpdated DateTime
+    content        String?
+    category       String? // Single
+    published      Boolean   @default(false)
+    publishedURL   String? // URL
+    heroImage      String? // URL?
+    thumbnailImage String? // URL?
+    publishDate    DateTime?
+    publishUpdated DateTime?
 }
 
 model Task {
-    id        String   @id @default(uuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id        String    @id @default(uuid())
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
     name      String
-    history   String // Array
-    tags      String // Array
+    history   String    @default("tbd") // Array
+    tags      String? // Array
     // – – – –
-    content   String
-    status    String // Array – ['todo', 'doing', 'done']
-    dueDate   DateTime
+    content   String?
+    status    String? // Array – ['todo', 'doing', 'done'] // @default?
+    dueDate   DateTime?
 }
 
 model Person {
@@ -72,15 +72,15 @@ model Person {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     name      String
-    history   String // Array
-    tags      String // Array
+    history   String   @default("tbd") // Array
+    tags      String? // Array
     // – – – –
-    content   String
+    content   String?
     firstName String
     lastName  String
-    phone     String   @unique // phone number
-    email     String   @unique // email
-    address   String
+    phone     String?  @unique // phone number
+    email     String?  @unique // email
+    address   String?
 }
 
 model Link {
@@ -88,12 +88,12 @@ model Link {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     name      String
-    history   String // Array
-    tags      String // Array
+    history   String   @default("tbd") // Array
+    tags      String? // Array
     // – – – –
-    content   String
+    content   String?
     url       String // URL
-    category  String // Array
-    image     String // URL?
+    category  String? // Array
+    image     String? // URL?
     published Boolean  @default(false)
 }
