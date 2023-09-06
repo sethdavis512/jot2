@@ -21,12 +21,18 @@ datasource db {
 // tags      String // Array
 
 model User {
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt DateTime @default(now())
+    id        String     @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime   @default(now())
     firstName String
-    lastName  String?
-    email     String   @unique
+    lastName  String
+    name      String
+    email     String     @unique
     posts     Post[]
+    Tag       Tag[]
+    Category  Category[]
+    Event     Event[]
+    Task      Task[]
+    Link      Link[]
 }
 
 model Post {
@@ -39,80 +45,122 @@ model Post {
     authorId  String?  @db.ObjectId
 }
 
-// model Event {
-//     id        String   @id @default(uuid())
-//     createdAt DateTime @default(now())
-//     updatedAt DateTime @updatedAt
-//     name      String
-//     history   String   @default("tbd") // Array
-//     tags      String? // Array
-//     // – – – –
-//     content   String?
-//     allDay    Boolean  @default(false)
-//     start     DateTime
-//     end       DateTime
-//     type      String? // Array – ['event', 'reminder']
-//     image     String? // URL?
-// }
+model Tag {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime @default(now())
+    author    User?    @relation(fields: [authorId], references: [id])
+    authorId  String?  @db.ObjectId
+    name      String
+    Event     Event?   @relation(fields: [eventId], references: [id])
+    eventId   String?  @db.ObjectId
+    Note      Note?    @relation(fields: [noteId], references: [id])
+    noteId    String?  @db.ObjectId
+    Task      Task?    @relation(fields: [taskId], references: [id])
+    taskId    String?  @db.ObjectId
+    Person    Person?  @relation(fields: [personId], references: [id])
+    personId  String?  @db.ObjectId
+    Link      Link?    @relation(fields: [linkId], references: [id])
+    linkId    String?  @db.ObjectId
+}
 
-// model Note {
-//     id             String    @id @default(uuid())
-//     createdAt      DateTime  @default(now())
-//     updatedAt      DateTime  @updatedAt
-//     name           String
-//     history        String    @default("tbd") // Array
-//     tags           String? // Array
-//     // – – – –
-//     content        String?
-//     category       String? // Single
-//     published      Boolean   @default(false)
-//     publishedURL   String? // URL
-//     heroImage      String? // URL?
-//     thumbnailImage String? // URL?
-//     publishDate    DateTime?
-//     publishUpdated DateTime?
-// }
+model Category {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime @default(now())
+    author    User?    @relation(fields: [authorId], references: [id])
+    authorId  String?  @db.ObjectId
+    name      String
+    Event     Event?   @relation(fields: [eventId], references: [id])
+    eventId   String?  @db.ObjectId
+    Note      Note?    @relation(fields: [noteId], references: [id])
+    noteId    String?  @db.ObjectId
+}
 
-// model Task {
-//     id        String    @id @default(uuid())
-//     createdAt DateTime  @default(now())
-//     updatedAt DateTime  @updatedAt
-//     name      String
-//     history   String    @default("tbd") // Array
-//     tags      String? // Array
-//     // – – – –
-//     content   String?
-//     status    String? // Array – ['todo', 'doing', 'done'] // @default?
-//     dueDate   DateTime?
-// }
+model Event {
+    id        String     @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+    name      String
+    history   String     @default("tbd") // Array
+    tags      Tag[]
+    // – – – –
+    content   String?
+    allDay    Boolean    @default(false)
+    start     DateTime
+    end       DateTime
+    type      String? // Array – ['event', 'reminder']
+    image     String? // URL?
+    Category  Category[]
+    User      User?      @relation(fields: [userId], references: [id])
+    userId    String?    @db.ObjectId
+}
 
-// model Person {
-//     id        String   @id @default(uuid())
-//     createdAt DateTime @default(now())
-//     updatedAt DateTime @updatedAt
-//     name      String
-//     history   String   @default("tbd") // Array
-//     tags      String? // Array
-//     // – – – –
-//     content   String?
-//     firstName String
-//     lastName  String
-//     phone     String?  @unique // phone number
-//     email     String?  @unique // email
-//     address   String?
-// }
+model Note {
+    id             String     @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt      DateTime   @default(now())
+    updatedAt      DateTime   @updatedAt
+    name           String
+    history        String     @default("tbd") // Array
+    tags           Tag[]
+    // – – – –
+    content        String?
+    Category       Category[]
+    published      Boolean    @default(false)
+    publishedURL   String? // URL
+    heroImage      String? // URL?
+    thumbnailImage String? // URL?
+    publishDate    DateTime?
+    publishUpdated DateTime?
+}
 
-// model Link {
-//     id        String   @id @default(uuid())
-//     createdAt DateTime @default(now())
-//     updatedAt DateTime @updatedAt
-//     name      String
-//     history   String   @default("tbd") // Array
-//     tags      String? // Array
-//     // – – – –
-//     content   String?
-//     url       String // URL
-//     category  String? // Array
-//     image     String? // URL?
-//     published Boolean  @default(false)
-// }
+model Task {
+    id        String    @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    name      String
+    history   String    @default("tbd") // Array
+    tags      Tag[]
+    // – – – –
+    content   String?
+    status    String? // Array – ['todo', 'doing', 'done'] // @default?
+    dueDate   DateTime?
+    User      User?     @relation(fields: [userId], references: [id])
+    userId    String?   @db.ObjectId
+}
+
+model Link {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name      String
+    history   String   @default("tbd") // Array
+    tags      Tag[]
+    // – – – –
+    content   String?
+    url       String // URL
+    category  String? // Array
+    image     String? // URL?
+    published Boolean  @default(false)
+    User      User?    @relation(fields: [userId], references: [id])
+    userId    String?  @db.ObjectId
+}
+
+model Person {
+    id            String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @updatedAt
+    name          String
+    history       String   @default("tbd") // Array
+    tags          Tag[]
+    // – – – –
+    content       String?
+    firstName     String
+    lastName      String
+    phone         String?  @unique // phone number
+    email         String?  @unique // email
+    address       String?
+    Person        Person[] @relation(name: "RelatedPerson")
+    RelatedPerson Person?  @relation(fields: [personId], references: [id])
+    personId      String?  @db.ObjectId
+    Person        Person?  @relation(fields: [personId], references: [id])
+    Person        Person[]
+}
