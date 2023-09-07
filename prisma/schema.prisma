@@ -13,12 +13,12 @@ datasource db {
 // **********************
 // Universal Model fields
 // **********************
-// id        String   @id @default(uuid())
-// createdAt DateTime @default(now())
-// updatedAt DateTime @updatedAt
-// name      String
-// history   String // Array
-// tags      String // Array
+// id             String     @id @default(auto()) @map("_id") @db.ObjectId
+// createdAt      DateTime   @default(now())
+// updatedAt      DateTime   @updatedAt
+// name           String
+// history        String     @default("tbd") // Array
+// tags           Tag[]
 
 model User {
     id        String     @id @default(auto()) @map("_id") @db.ObjectId
@@ -70,8 +70,12 @@ enum DocType {
 model Block {
     id         String    @id @default(auto()) @map("_id") @db.ObjectId
     createdAt  DateTime  @default(now())
-    title      String
-    body       String?
+    updatedAt  DateTime  @updatedAt
+    name       String
+    history    String    @default("tbd") // Array
+    tags       Tag[]
+    // – – – –
+    content    String?
     views      Int       @default(0)
     author     User?     @relation(fields: [authorId], references: [id])
     authorId   String?   @db.ObjectId
@@ -83,9 +87,12 @@ model Block {
 model Tag {
     id         String    @id @default(auto()) @map("_id") @db.ObjectId
     createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+    name       String
+    history    String    @default("tbd") // Array
+    // – – – –
     author     User?     @relation(fields: [authorId], references: [id])
     authorId   String?   @db.ObjectId
-    name       String
     Event      Event?    @relation(fields: [eventId], references: [id])
     eventId    String?   @db.ObjectId
     Task       Task?     @relation(fields: [taskId], references: [id])
@@ -96,15 +103,20 @@ model Tag {
     linkId     String?   @db.ObjectId
     Document   Document? @relation(fields: [documentId], references: [id])
     documentId String?   @db.ObjectId
+    Block      Block?    @relation(fields: [blockId], references: [id])
+    blockId    String?   @db.ObjectId
 }
 
 // JSON file
 model Category {
     id         String    @id @default(auto()) @map("_id") @db.ObjectId
     createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+    name       String
+    history    String    @default("tbd") // Array
+    // – – – –
     author     User?     @relation(fields: [authorId], references: [id])
     authorId   String?   @db.ObjectId
-    name       String
     Event      Event?    @relation(fields: [eventId], references: [id])
     eventId    String?   @db.ObjectId
     Document   Document? @relation(fields: [documentId], references: [id])
@@ -129,6 +141,8 @@ model Event {
     Category  Category[]
     User      User?      @relation(fields: [userId], references: [id])
     userId    String?    @db.ObjectId
+    Task      Task?      @relation(fields: [taskId], references: [id])
+    taskId    String?    @db.ObjectId
 }
 
 enum EventType {
@@ -150,6 +164,7 @@ model Task {
     dueDate    DateTime?
     User       User?      @relation(fields: [userId], references: [id])
     userId     String?    @db.ObjectId
+    Event      Event[]
 }
 
 enum TaskStatus {
