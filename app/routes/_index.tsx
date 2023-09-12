@@ -1,4 +1,5 @@
 import { type V2_MetaFunction } from "@remix-run/node";
+import Editor from "../components/Editor";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -8,5 +9,6 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export default function Index() {
-  return <div>This is the home page.</div>;
+  // return <div>This is the home page.</div>;
+  return <Editor />;
 }
