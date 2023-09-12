@@ -1,0 +1,481 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button should have correct styles for accent button with dark mode 1`] = `
+.emotion-0 {
+  font-weight: 400;
+  font-family: "Source Sans Pro","Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1rem;
+  line-height: 125%;
+  border-radius: 0.25rem;
+  border-color: transparent;
+  border-width: 0.125rem;
+  border-style: solid;
+  outline: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  background-color: #008480;
+  color: #EDEFF0;
+}
+
+.emotion-0:disabled {
+  opacity: 0.4;
+}
+
+.emotion-0:hover {
+  background-color: #00A398;
+}
+
+.emotion-0:active {
+  background-color: #0F6460;
+  border-color: transparent;
+}
+
+.emotion-0:focus-visible {
+  border-color: #A1D3FF;
+}
+
+.emotion-0:disabled:hover {
+  background-color: #008480;
+}
+
+<button
+  class="emotion-0"
+/>
+`;
+
+exports[`Button should have correct styles for accent button with light mode 1`] = `
+.emotion-0 {
+  font-weight: 400;
+  font-family: "Source Sans Pro","Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1rem;
+  line-height: 125%;
+  border-radius: 0.25rem;
+  border-color: transparent;
+  border-width: 0.125rem;
+  border-style: solid;
+  outline: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  background-color: #008480;
+  color: #FFFFFF;
+}
+
+.emotion-0:disabled {
+  opacity: 0.4;
+}
+
+.emotion-0:hover {
+  background-color: #00A398;
+}
+
+.emotion-0:active {
+  background-color: #0F6460;
+  border-color: transparent;
+}
+
+.emotion-0:focus-visible {
+  border-color: #0B4B3F;
+}
+
+.emotion-0:disabled:hover {
+  background-color: #008480;
+}
+
+<button
+  class="emotion-0"
+/>
+`;
+
+exports[`Button should have correct styles for danger button with dark mode 1`] = `
+.emotion-0 {
+  font-weight: 400;
+  font-family: "Source Sans Pro","Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1rem;
+  line-height: 125%;
+  border-radius: 0.25rem;
+  border-color: transparent;
+  border-width: 0.125rem;
+  border-style: solid;
+  outline: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  background-color: #E52207;
+  color: #EDEFF0;
+}
+
+.emotion-0:disabled {
+  opacity: 0.4;
+}
+
+.emotion-0:hover {
+  background-color: #FB5A47;
+}
+
+.emotion-0:active {
+  background-color: #B50909;
+  border-color: transparent;
+}
+
+.emotion-0:focus-visible {
+  border-color: #A1D3FF;
+}
+
+.emotion-0:disabled:hover {
+  background-color: #E52207;
+}
+
+<button
+  class="emotion-0"
+/>
+`;
+
+exports[`Button should have correct styles for danger button with light mode 1`] = `
+.emotion-0 {
+  font-weight: 400;
+  font-family: "Source Sans Pro","Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1rem;
+  line-height: 125%;
+  border-radius: 0.25rem;
+  border-color: transparent;
+  border-width: 0.125rem;
+  border-style: solid;
+  outline: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  background-color: #E52207;
+  color: #FFFFFF;
+}
+
+.emotion-0:disabled {
+  opacity: 0.4;
+}
+
+.emotion-0:hover {
+  background-color: #FB5A47;
+}
+
+.emotion-0:active {
+  background-color: #B50909;
+  border-color: transparent;
+}
+
+.emotion-0:focus-visible {
+  border-color: #8B0A03;
+}
+
+.emotion-0:disabled:hover {
+  background-color: #E52207;
+}
+
+<button
+  class="emotion-0"
+/>
+`;
+
+exports[`Button should have correct styles for hollow button with dark mode 1`] = `
+.emotion-0 {
+  font-weight: 400;
+  font-family: "Source Sans Pro","Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1rem;
+  line-height: 125%;
+  border-radius: 0.25rem;
+  border-color: transparent;
+  border-width: 0.125rem;
+  border-style: solid;
+  outline: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  background-color: transparent;
+  color: #EDEFF0;
+}
+
+.emotion-0:disabled {
+  opacity: 0.4;
+}
+
+.emotion-0:hover {
+  background-color: #565C65;
+}
+
+.emotion-0:active {
+  background-color: #000000;
+  border-color: transparent;
+}
+
+.emotion-0:focus-visible {
+  border-color: #A1D3FF;
+  background-color: #3D4551;
+}
+
+.emotion-0:focus-visible:active {
+  background-color: #000000;
+}
+
+.emotion-0:disabled:hover {
+  background-color: transparent;
+}
+
+<button
+  class="emotion-0"
+/>
+`;
+
+exports[`Button should have correct styles for hollow button with light mode 1`] = `
+.emotion-0 {
+  font-weight: 400;
+  font-family: "Source Sans Pro","Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1rem;
+  line-height: 125%;
+  border-radius: 0.25rem;
+  border-color: transparent;
+  border-width: 0.125rem;
+  border-style: solid;
+  outline: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  background-color: transparent;
+  color: #2D2E2F;
+}
+
+.emotion-0:disabled {
+  opacity: 0.4;
+}
+
+.emotion-0:hover {
+  background-color: #F7F9FA;
+}
+
+.emotion-0:active {
+  background-color: #C6CACE;
+  border-color: transparent;
+}
+
+.emotion-0:focus-visible {
+  border-color: #0076DA;
+  background-color: #EDEFF0;
+}
+
+.emotion-0:focus-visible:active {
+  background-color: #C6CACE;
+}
+
+.emotion-0:disabled:hover {
+  background-color: transparent;
+}
+
+<button
+  class="emotion-0"
+/>
+`;
+
+exports[`Button should have correct styles for primary button with dark mode 1`] = `
+.emotion-0 {
+  font-weight: 400;
+  font-family: "Source Sans Pro","Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1rem;
+  line-height: 125%;
+  border-radius: 0.25rem;
+  border-color: transparent;
+  border-width: 0.125rem;
+  border-style: solid;
+  outline: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  background-color: #0076DA;
+  color: #EDEFF0;
+}
+
+.emotion-0:disabled {
+  opacity: 0.4;
+}
+
+.emotion-0:hover {
+  background-color: #2491FF;
+}
+
+.emotion-0:active {
+  background-color: #005EA2;
+  border-color: transparent;
+}
+
+.emotion-0:focus-visible {
+  border-color: #A1D3FF;
+}
+
+.emotion-0:disabled:hover {
+  background-color: #0076DA;
+}
+
+<button
+  class="emotion-0"
+/>
+`;
+
+exports[`Button should have correct styles for primary button with light mode 1`] = `
+.emotion-0 {
+  font-weight: 400;
+  font-family: "Source Sans Pro","Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1rem;
+  line-height: 125%;
+  border-radius: 0.25rem;
+  border-color: transparent;
+  border-width: 0.125rem;
+  border-style: solid;
+  outline: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  background-color: #0076DA;
+  color: #FFFFFF;
+}
+
+.emotion-0:disabled {
+  opacity: 0.4;
+}
+
+.emotion-0:hover {
+  background-color: #2491FF;
+}
+
+.emotion-0:active {
+  background-color: #005EA2;
+  border-color: transparent;
+}
+
+.emotion-0:focus-visible {
+  border-color: #0B4778;
+}
+
+.emotion-0:disabled:hover {
+  background-color: #0076DA;
+}
+
+<button
+  class="emotion-0"
+/>
+`;
+
+exports[`Button should have correct styles for standard button with dark mode 1`] = `
+.emotion-0 {
+  font-weight: 400;
+  font-family: "Source Sans Pro","Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1rem;
+  line-height: 125%;
+  border-radius: 0.25rem;
+  border-color: transparent;
+  border-width: 0.125rem;
+  border-style: solid;
+  outline: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  background-color: #3D4551;
+  color: #EDEFF0;
+}
+
+.emotion-0:disabled {
+  opacity: 0.4;
+}
+
+.emotion-0:hover {
+  background-color: #565C65;
+}
+
+.emotion-0:active {
+  background-color: #000000;
+  border-color: transparent;
+}
+
+.emotion-0:focus-visible {
+  border-color: #A1D3FF;
+}
+
+.emotion-0:disabled:hover {
+  background-color: #3D4551;
+}
+
+<button
+  class="emotion-0"
+/>
+`;
+
+exports[`Button should have correct styles for standard button with light mode 1`] = `
+.emotion-0 {
+  font-weight: 400;
+  font-family: "Source Sans Pro","Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1rem;
+  line-height: 125%;
+  border-radius: 0.25rem;
+  border-color: transparent;
+  border-width: 0.125rem;
+  border-style: solid;
+  outline: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  background-color: #EDEFF0;
+  color: #2D2E2F;
+}
+
+.emotion-0:disabled {
+  opacity: 0.4;
+}
+
+.emotion-0:hover {
+  background-color: #F7F9FA;
+}
+
+.emotion-0:active {
+  background-color: #C6CACE;
+  border-color: transparent;
+}
+
+.emotion-0:focus-visible {
+  border-color: #0076DA;
+}
+
+.emotion-0:disabled:hover {
+  background-color: #EDEFF0;
+}
+
+<button
+  class="emotion-0"
+/>
+`;
