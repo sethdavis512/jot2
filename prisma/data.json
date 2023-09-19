@@ -1,0 +1,102 @@
+{
+    "users": [
+        {
+            "firstName": "John",
+            "lastName": "Doe",
+            "name": "John Doe",
+            "email": "john.doe@example.com"
+        },
+        {
+            "firstName": "Jane",
+            "lastName": "Smith",
+            "name": "Jane Smith",
+            "email": "jane.smith@example.com"
+        }
+    ],
+    "documents": [
+        {
+            "name": "Document 1",
+            "history": "tbd",
+            "tags": ["Tag1", "Tag2"]
+        },
+        {
+            "name": "Document 2",
+            "history": "tbd",
+            "tags": ["Tag3", "Tag4"]
+        }
+    ],
+    "blocks": [
+        {
+            "name": "Block 1",
+            "history": "tbd",
+            "tags": ["BlockTag1", "BlockTag2"]
+        },
+        {
+            "name": "Block 2",
+            "history": "tbd",
+            "tags": ["BlockTag3", "BlockTag4"]
+        }
+    ],
+    "tags": [
+        {
+            "name": "Tag1",
+            "history": "tbd"
+        },
+        {
+            "name": "Tag2",
+            "history": "tbd"
+        }
+    ],
+    "categories": [
+        {
+            "name": "Category1",
+            "history": "tbd"
+        },
+        {
+            "name": "Category2",
+            "history": "tbd"
+        }
+    ],
+    "events": [
+        {
+            "name": "Event1",
+            "history": "tbd"
+        },
+        {
+            "name": "Event2",
+            "history": "tbd"
+        }
+    ],
+    "tasks": [
+        {
+            "name": "Task1",
+            "history": "tbd"
+        },
+        {
+            "name": "Task2",
+            "history": "tbd"
+        }
+    ],
+    "links": [
+        {
+            "name": "Link1",
+            "history": "tbd",
+            "url": "www.google.com"
+        },
+        {
+            "name": "Link2",
+            "history": "tbd",
+            "url": "www.google.com"
+        }
+    ],
+    "persons": [
+        {
+            "name": "Person1",
+            "history": "tbd"
+        },
+        {
+            "name": "Person2",
+            "history": "tbd"
+        }
+    ]
+}

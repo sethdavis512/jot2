@@ -1,18 +1,28 @@
-import { type ReactNode } from 'react';
+import { type ReactNode } from "react";
 
-import Navbar from './Navbar';
+import AppHeader from "./AppHeader";
+// import "normalize.css/normalize.css";
+import Box from "./Box";
 
 interface DefaultLayoutProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export default function DefaultLayout({ children }: DefaultLayoutProps) {
-    return (
-        <div>
-            <header>
-                <Navbar />
-            </header>
-            {children}
-        </div>
-    );
+  return (
+    <Box sx={{ height: "100%" }}>
+      <AppHeader />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        {children}
+      </Box>
+    </Box>
+  );
 }

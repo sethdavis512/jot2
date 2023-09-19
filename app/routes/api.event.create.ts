@@ -4,12 +4,13 @@ import { createEvent } from '~/models/event.server';
 export const action = async ({ request }: ActionArgs) => {
     const form = await request.formData();
 
-    const name = form.get('title') as string;
+    const name = form.get('name') as string;
     const content = form.get('content') as string;
     const start = new Date(form.get('start'));
     const end = new Date(form.get('end'));
-    // const startTime = form.get('startTime') as string;
-    // const endTime = form.get('endTime') as string;
+    const tags = form.get('tags') as string;
+    const type = form.get('type') as string;
+    const image = form.get('image') as string;
 
     console.log({ content });
 
