@@ -1,60 +1,68 @@
 {
-    "private": true,
-    "sideEffects": false,
-    "scripts": {
-        "build": "remix build",
-        "dev": "remix dev",
-        "start": "remix-serve build",
-        "typecheck": "tsc",
-        "test": "jest",
-        "test:watch": "jest --watch",
-        "script:create-user": "ts-node src/prisma-examples/1-create-user.ts",
-        "script:find-user": "ts-node src/prisma-examples/2-find-user.ts",
-        "script:update-user": "ts-node src/prisma-examples/3-update-user.ts",
-        "script:delete-user": "ts-node src/prisma-examples/4-delete-user.ts",
-        "script:create-user-post": "ts-node src/prisma-examples/5-create-user-post.ts",
-        "script:find-posts": "ts-node src/prisma-examples/6-find-posts.ts"
-    },
-    "dependencies": {
-        "@emotion/react": "^11.11.1",
-        "@emotion/styled": "^11.3.0",
-        "@emotion/styled-base": "^11.0.0",
-        "@fullcalendar/core": "^6.1.8",
-        "@fullcalendar/daygrid": "^6.1.8",
-        "@fullcalendar/interaction": "^6.1.8",
-        "@fullcalendar/react": "^6.1.8",
-        "@prisma/client": "^5.2.0",
-        "@remix-run/css-bundle": "^1.19.2",
-        "@remix-run/node": "^1.19.2",
-        "@remix-run/react": "^1.19.2",
-        "@remix-run/serve": "^1.19.2",
-        "date-fns": "^2.29.1",
-        "isbot": "^3.6.8",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "slate": "^0.66.5",
-        "slate-history": "^0.66.0",
-        "slate-react": "^0.67.0",
-        "styled-components": "^6.0.7",
-        "theme-ui": "^0.16.1"
-    },
-    "devDependencies": {
-        "@remix-run/dev": "^1.19.2",
-        "@remix-run/eslint-config": "^1.19.2",
-        "@types/jest": "29.5.4",
-        "@types/node": "18.17.14",
-        "@types/react": "^18.0.35",
-        "@types/react-dom": "^18.0.11",
-        "@types/styled-system__css": "^5.0.16",
-        "@types/theme-ui": "^0.6.0",
-        "eslint": "^8.38.0",
-        "jest": "29.6.4",
-        "prisma": "^5.2.0",
-        "ts-jest": "29.1.1",
-        "ts-node": "10.9.1",
-        "typescript": "^5.0.4"
-    },
-    "engines": {
-        "node": ">=14.0.0"
-    }
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "build": "remix build",
+    "dev": "remix dev",
+    "start": "remix-serve build",
+    "typecheck": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "script:create-user": "ts-node src/prisma-examples/1-create-user.ts",
+    "script:find-user": "ts-node src/prisma-examples/2-find-user.ts",
+    "script:update-user": "ts-node src/prisma-examples/3-update-user.ts",
+    "script:delete-user": "ts-node src/prisma-examples/4-delete-user.ts",
+    "script:create-user-post": "ts-node src/prisma-examples/5-create-user-post.ts",
+    "script:find-posts": "ts-node src/prisma-examples/6-find-posts.ts"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.3.0",
+    "@emotion/styled-base": "^11.0.0",
+    "@fullcalendar/core": "^6.1.8",
+    "@fullcalendar/daygrid": "^6.1.8",
+    "@fullcalendar/interaction": "^6.1.8",
+    "@fullcalendar/react": "^6.1.8",
+    "@prisma/client": "^5.2.0",
+    "@remix-run/css-bundle": "^1.19.2",
+    "@remix-run/node": "^1.19.2",
+    "@remix-run/react": "^1.19.2",
+    "@remix-run/serve": "^1.19.2",
+    "date-fns": "^2.29.1",
+    "isbot": "^3.6.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "slate": "^0.94.1",
+    "slate-history": "^0.93.0",
+    "slate-react": "^0.98.3",
+    "styled-components": "^6.0.7",
+    "theme-ui": "^0.16.1"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
+    "@remix-run/dev": "^1.19.2",
+    "@remix-run/eslint-config": "^1.19.2",
+    "@types/jest": "29.5.4",
+    "@types/node": "18.17.14",
+    "@types/react": "^18.0.35",
+    "@types/react-dom": "^18.0.11",
+    "@types/styled-system__css": "^5.0.16",
+    "@types/theme-ui": "^0.6.0",
+    "eslint": "^8.38.0",
+    "jest": "29.6.4",
+    "prisma": "^5.2.0",
+    "ts-jest": "29.1.1",
+    "ts-node": "10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "singleQuote": false
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  }
 }

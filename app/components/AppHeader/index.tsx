@@ -31,6 +31,9 @@ export function Navbar() {
         <NavItem>
           <Link to="event/new">New event</Link>
         </NavItem>
+        <NavItem>
+          <Link to="documents">Documents</Link>
+        </NavItem>
       </NavList>
     </nav>
   );

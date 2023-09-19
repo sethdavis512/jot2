@@ -46,8 +46,8 @@ model Document {
     tags           Tag[]
     // – – – –
     content        String?
-    DocType        DocType    @default(Note)
-    Category       Category[]
+    docType        DocType    @default(Note)
+    categories     Category[]
     published      Boolean    @default(false)
     publishedURL   String? // URL
     heroImage      String? // URL?
@@ -57,7 +57,7 @@ model Document {
     views          Int        @default(0)
     author         User?      @relation(fields: [authorId], references: [id])
     authorId       String?    @db.ObjectId
-    Block          Block[]
+    blocks         Block[]
 }
 
 enum DocType {
@@ -199,16 +199,15 @@ model Person {
     name            String
     history         String   @default("tbd") // Array
     tags            Tag[]
-    // – – – –
     content         String?
     firstName       String
     lastName        String
     phone           String?  @unique // phone number
     email           String?  @unique // email
     address         Address?
-    relatedPersonId String   @unique @db.ObjectId
-    RelatedPerson   Person?  @relation("RelatedPerson", fields: [relatedPersonId], references: [id], onUpdate: NoAction, onDelete: NoAction)
-    RelatedPeople   Person[] @relation("RelatedPerson")
+    relatedPersonId String?  @unique @db.ObjectId
+    relatedPerson   Person?  @relation("relatedPerson", fields: [relatedPersonId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+    relatedPeople   Person[] @relation("relatedPerson")
 }
 
 type Address {

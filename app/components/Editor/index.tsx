@@ -1,18 +1,17 @@
-import React, { useMemo, useCallback } from "react";
+import { useMemo, useCallback } from "react";
 
+import type { BaseEditor, Descendant } from "slate";
 import {
-  BaseEditor,
   createEditor,
-  Descendant,
   Editor as SlateEditor,
   Element,
   Transforms,
+  Node,
 } from "slate";
-import { Slate, Editable, withReact, ReactEditor } from "slate-react";
+import { Slate, Editable, withReact, type ReactEditor } from "slate-react";
 import { withHistory } from "slate-history";
 import isHotkey from "is-hotkey";
 
-import useLocalStorage from "../../hooks/useLocalStorage";
 import Box from "../Box";
 import HeadingOne from "../slate/HeadingOne";
 import HeadingTwo from "../slate/HeadingTwo";
@@ -22,6 +21,7 @@ import Leaf from "../slate/Leaf";
 import NumberedList from "../slate/NumberedList";
 import BulletedList from "../slate/BulletedList";
 import ListItem from "../slate/ListItem";
+import { useFetcher } from "@remix-run/react";
 
 type ParagraphElement = { type: "paragraph"; children: Descendant[] };
 type HeadingOneElement = { type: "heading-one"; children: Descendant[] };
@@ -130,29 +130,38 @@ const toggleMark = (editor: SlateEditor, format: Marks) => {
 
 const StyledEditable = Box.withComponent(Editable);
 
-const Editor: React.FunctionComponent = () => {
-  const editor = useMemo(() => withReact(withHistory(createEditor())), []);
-  const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
-  const [value, setValue] = useLocalStorage<Descendant[]>("jotApp", [
-    {
-      type: "heading-one",
-      children: [{ text: "Heading One" }],
-    },
-    {
-      type: "heading-two",
-      children: [{ text: "Heading Two" }],
-    },
-    {
-      type: "heading-three",
-      children: [{ text: "Heading Three" }],
-    },
-    {
-      type: "paragraph",
-      children: [{ text: "A line of text in a paragraph." }],
-    },
-  ]);
+interface EditorProps {
+  editorValue: Descendant[];
+}
 
-  const renderElement = useCallback((props) => {
+// @ts-ignore Define a serializing function that takes a value and returns a string.
+const serialize = (value) => {
+  return (
+    value
+      // Return the string content of each paragraph in the value's children.
+      .map((n: any) => Node.string(n))
+      // Join them all with line breaks denoting paragraphs.
+      .join("\n")
+  );
+};
+
+// @ts-ignore Define a deserializing function that takes a string and returns a value.
+const deserialize = (string) => {
+  // @ts-ignore Return a value array of children derived by splitting the string.
+  return string.split("\n").map((line) => {
+    return {
+      children: [{ text: line }],
+    };
+  });
+};
+
+const Editor = ({ editorValue }: EditorProps): JSX.Element => {
+  const editorFetcher = useFetcher();
+
+  const editor = useMemo(() => withReact(withHistory(createEditor())), []);
+  const renderLeaf = useCallback((props: any) => <Leaf {...props} />, []);
+
+  const renderElement = useCallback((props: any) => {
     switch (props.element.type) {
       case "heading-one":
         return <HeadingOne {...props} />;
@@ -174,8 +183,17 @@ const Editor: React.FunctionComponent = () => {
   return (
     <Slate
       editor={editor}
-      value={value}
-      onChange={(newValue) => setValue(newValue)}
+      initialValue={editorValue}
+      onChange={async (value) => {
+        console.log(JSON.stringify(value));
+
+        editorFetcher.submit(
+          {
+            content: JSON.stringify(value),
+          },
+          { method: "post" }
+        );
+      }}
     >
       <StyledEditable
         onKeyDown={(event) => {
@@ -208,7 +226,12 @@ const Editor: React.FunctionComponent = () => {
         renderElement={renderElement}
         renderLeaf={renderLeaf}
         spellCheck
-        sx={{ maxWidth: "650px", width: "100%", minHeight: "100px", p: 8 }}
+        sx={{
+          maxWidth: "650px",
+          width: "100%",
+          minHeight: "100px",
+          p: 8,
+        }}
       />
     </Slate>
   );
