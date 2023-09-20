@@ -3,9 +3,17 @@ import { prisma } from "~/utils/db.server";
 
 // Create a new document
 export function createDocument({ content }: Pick<Document, "content">) {
+  const today = new Date();
+
   return prisma.document.create({
     data: {
-      name: "A document",
+      name: name ||
+      [
+        {
+          type: "heading-one",
+          children: [{ text: today.toDateString() as string }],
+        },
+      ],
       content,
     },
   });

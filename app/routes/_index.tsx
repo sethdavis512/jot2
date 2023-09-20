@@ -32,13 +32,13 @@ export const loader: LoaderFunction = async () => {
 };
 
 export default function Index() {
-  const { documents } = useLoaderData();
+  // const { documents } = useLoaderData();
 
   return (
     <>
-      <pre>
+      {/* <pre>
         <code>{JSON.stringify(documents, null, 2)}</code>
-      </pre>
+      </pre> */}
       <Editor
         editorValue={[
           {
