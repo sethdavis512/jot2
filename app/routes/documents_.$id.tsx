@@ -31,7 +31,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export default function DocumentDetailRoute() {
   const data = useLoaderData<typeof loader>();
 
-  // console.log(data.document.name);
+  console.log(data.document.createdAt);
 
   return (
     <div className="">

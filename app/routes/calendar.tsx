@@ -8,6 +8,7 @@ import { json } from "@remix-run/node";
 import { getEvents } from "~/models/event.server";
 import Box from "../components/Box";
 import Calendar from "../components/Calendar";
+import Datepicker from "../components/Datepicker";
 
 // const Box = styled("div")`
 //   font-family: system-ui, sans-serif;
@@ -38,15 +39,16 @@ export default function CalendarRoute() {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Calendar
+    <Box sx={{ width: "fit-content" }}>
+      <Datepicker data={eventData.events} />
+      {/* <Calendar
         // plugins={[dayGridPlugin, interactionPlugin]}
         // initialView="dayGridMonth"
         // eventClick={handleEventClick}
         // dateClick={handleDateClick}
         // events={eventData.events}
         data={eventData.events}
-      />
+      /> */}
     </Box>
   );
 }
