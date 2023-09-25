@@ -15,43 +15,46 @@ import {
   parseISO,
   startOfToday,
 } from "date-fns";
-import ChevronLeft from "../icons/ChevronLeft";
-import ChevronRight from "../icons/ChevronRight";
-import { NavLink } from "@remix-run/react";
+import Text from "../Text";
+import Box from "../Box";
+import Button, { IconButton } from "../Button";
+import ChevronFilledLeft from "../icons/ChevronFilledLeft";
+import ChevronFilledRight from "../icons/ChevronFilledRight";
+import Rule from "../Rule";
+import { json, type LoaderFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { findManyDocuments } from "~/models/document.server";
 
-const colStartClasses = [
-  "",
-  "col-start-2",
-  "col-start-3",
-  "col-start-4",
-  "col-start-5",
-  "col-start-6",
-  "col-start-7",
-];
+const colStart = ["", "2", "3", "4", "5", "6", "7"];
 
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(" ");
-}
+export const loader: LoaderFunction = async () => {
+  const allEvents = await findManyDocuments();
+  return json({ events: allEvents });
+};
 
 export default function CalendarIndexRoute({
   data,
 }: {
   data: {
-    entryListItems: {
+    events: {
       id: string;
       title: string;
       body: string;
       createdAt: string;
+      name: string;
     }[];
   };
 }) {
-  const today = startOfToday();
-  const [selectedDay, setSelectedDay] = useState(today);
+  // const today = startOfToday();
+  const today = new Date();
+  const formatDateToYYYYMMDD = (date) => format(date, "yyyy-MM-dd");
+
+  // const [selectedDay, setSelectedDay] = useState(today);
 
   const [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
   const setSelectedDayToToday = () => {
     setCurrentMonth(format(today, "MMM-yyyy"));
-    setSelectedDay(today);
+    // setSelectedDay(today);
   };
   const firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
 
@@ -70,140 +73,163 @@ export default function CalendarIndexRoute({
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
   }
 
-  // const selectedDayEntries = data.entryListItems.filter((entry) =>
-  //   isSameDay(parseISO(entry.createdAt), selectedDay)
+  const { events } = useLoaderData();
+
+  console.log(events);
+
+  {
+    events.map(
+      (event) => (
+        console.log(event.name),
+        console.log(event.start),
+        console.log(parseISO(event.start))
+      )
+    );
+  }
+
+  // const dayEvents = data.events.filter((event) =>
+  //   isSameDay(parseISO(event.createdAt), day)
   // );
 
   return (
-    <div className="">
-      <div className="mx-auto max-w-md md:max-w-6xl">
-        <div className="grid-cols-1 md:grid xl:grid-cols-2 xl:divide-x xl:divide-zinc-200">
-          <div className="px-4 pt-8 xl:px-10">
-            <div className="mb-4 flex items-center">
-              <h2 className="flex-auto text-3xl font-semibold text-zinc-900">
-                {format(firstDayCurrentMonth, "MMMM yyyy")}
-              </h2>
-              <button
-                type="button"
-                onClick={previousMonth}
-                className="-my-1.5 flex flex-none items-center justify-center p-1.5 text-zinc-400 hover:text-zinc-500"
-              >
-                <span className="sr-only">Previous month</span>
-                <ChevronLeft aria-hidden="true" />
-              </button>
-              <button
-                onClick={nextMonth}
-                type="button"
-                className="hover:text-zinc-5 md:h-800 -my-1.5 -mr-1.5 ml-2 flex flex-none items-center justify-center p-1.5 text-zinc-400 md:h-8"
-              >
-                <span className="sr-only">Next month</span>
-                <ChevronRight aria-hidden="true" />
-              </button>
-            </div>
-            <div>
-              <button
-                className="rounded border border-green-600 py-2 px-4 text-green-600 hover:bg-zinc-200 active:bg-zinc-200"
-                onClick={setSelectedDayToToday}
-              >
-                Today
-              </button>
-            </div>
-            <div className="mt-10 grid grid-cols-7 text-center text-xs leading-6 text-zinc-900">
-              <div className="text-xl font-bold">S</div>
-              <div className="text-xl font-bold">M</div>
-              <div className="text-xl font-bold">T</div>
-              <div className="text-xl font-bold">W</div>
-              <div className="text-xl font-bold">T</div>
-              <div className="text-xl font-bold">F</div>
-              <div className="text-xl font-bold">S</div>
-            </div>
-            {/* ===== Start calendar ===== */}
-            <div className="mt-2 grid grid-cols-7 text-sm">
-              {days.map((day, dayIdx) => (
-                <div
-                  key={day.toString()}
-                  className={classNames(
-                    dayIdx === 0 && colStartClasses[getDay(day)],
-                    "py-1.5"
-                  )}
-                >
-                  <button
-                    type="button"
-                    onClick={() => setSelectedDay(day)}
-                    disabled={isFuture(day)}
-                    className={classNames(
-                      isEqual(day, selectedDay) && "text-white",
-                      !isEqual(day, selectedDay) &&
-                        isToday(day) &&
-                        "text-amber-500",
-                      !isEqual(day, selectedDay) &&
-                        !isToday(day) &&
-                        isSameMonth(day, firstDayCurrentMonth) &&
-                        "text-zinc-700",
-                      !isEqual(day, selectedDay) &&
-                        !isToday(day) &&
-                        !isSameMonth(day, firstDayCurrentMonth) &&
-                        "text-zinc-700",
-                      !isEqual(day, selectedDay) &&
-                        isFuture(day) &&
-                        "text-zinc-300",
-                      isEqual(day, selectedDay) &&
-                        isToday(day) &&
-                        "bg-green-800",
-                      isEqual(day, selectedDay) &&
-                        !isToday(day) &&
-                        "bg-zinc-900",
-                      !isEqual(day, selectedDay) && "hover:bg-zinc-200",
-                      (isEqual(day, selectedDay) || isToday(day)) &&
-                        "font-semibold",
-                      "mx-auto flex h-4 w-4 items-center justify-center rounded-full p-4 text-sm md:h-10 md:w-10 md:p-0 md:text-xl"
-                    )}
-                  >
-                    <time dateTime={format(day, "yyyy-MM-dd")}>
-                      {format(day, "d")}
-                    </time>
-                  </button>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        flex: "1",
+        p: 6,
+        pt: 0,
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "space-between",
+          py: 4,
+        }}
+      >
+        <Text level={2}>{format(firstDayCurrentMonth, "MMM dd, yyyy")}</Text>
+        <Button
+          variant="hollow"
+          onClick={setSelectedDayToToday}
+          title="Previous Month"
+        >
+          Today
+        </Button>
+      </Box>
+      <Rule />
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "space-between",
+          py: 4,
+        }}
+      >
+        <IconButton
+          variant="hollow"
+          onClick={previousMonth}
+          title="Previous Month"
+        >
+          <ChevronFilledLeft aria-hidden="true" />
+        </IconButton>
+        <Text level={3}>{format(firstDayCurrentMonth, "MMMM yyyy")}</Text>
+        <IconButton variant="hollow" onClick={nextMonth} title="Next Month">
+          <ChevronFilledRight aria-hidden="true" />
+        </IconButton>
+      </Box>
+      <Rule />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+          width: "100%",
+          py: 4,
+        }}
+      >
+        <Box>
+          <Text level={2}>Sun</Text>
+        </Box>
+        <Box>
+          <Text level={2}>Mon</Text>
+        </Box>
+        <Box>
+          <Text level={2}>Tue</Text>
+        </Box>
+        <Box>
+          <Text level={2}>Wed</Text>
+        </Box>
+        <Box>
+          <Text level={2}>Thu</Text>
+        </Box>
+        <Box>
+          <Text level={2}>Fri</Text>
+        </Box>
+        <Box>
+          <Text level={2}>Sat</Text>
+        </Box>
+      </Box>
+      {/* ===== Start Calendar ===== */}
+      <Box
+        sx={{
+          display: "grid",
+          // height: "100%",
+          flex: "1",
+          gridTemplateColumns: "repeat(7, 1fr)",
+          alignItems: "stretch",
+        }}
+      >
+        {days.map((day, dayIdx) => {
+          const isToday =
+            formatDateToYYYYMMDD(day) === formatDateToYYYYMMDD(today);
 
-                  <div className="mx-auto mt-1 h-1 w-1">
-                    {/* {data.entryListItems.some((meeting) =>
-                      isSameDay(parseISO(meeting.createdAt), day)
-                    ) && (
-                      <div className="h-2 w-2 rounded-full bg-amber-600"></div>
-                    )} */}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          {/* ===== List of entries ===== */}
-          <section className="mt-12 px-4 pt-8 md:mt-0 xl:px-10">
-            <h2 className="mb-4 font-semibold text-zinc-900">
-              Entries for{" "}
-              <time dateTime={format(selectedDay, "yyyy-MM-dd")}>
-                {format(selectedDay, "MMM dd, yyy")}
-              </time>
-            </h2>
-            {/* {selectedDayEntries.length > 0 ? (
-              selectedDayEntries.map((entry) => (
-                <NavLink
-                  className={({ isActive }) =>
-                    `mb-2 block rounded-xl p-3 text-xl hover:bg-amber-100 md:p-4  ${
-                      isActive ? "bg-amber-300" : ""
-                    }`
-                  }
-                  to={entry.id}
-                  key={entry.id}
+          return (
+            <Box
+              key={day.toString()}
+              onClick={() => setSelectedDay(day)}
+              sx={(theme) => ({
+                gridColumnStart: dayIdx === 0 && colStart[getDay(day)],
+                p: 4,
+                borderWidth: 0,
+                marginRight: "1px",
+                marginBottom: "1px",
+                boxShadow: `0 -.875rem 0 -.8125rem ${theme.colors.gray[5]}, 0.875rem 0 0 -.8125rem ${theme.colors.gray[5]}, 0 0.875rem 0 -.8125rem ${theme.colors.gray[5]}, -.875rem 0 0 -.8125rem ${theme.colors.gray[5]}`,
+              })}
+            >
+              <time dateTime={format(day, "yyyy-MM-dd")}>
+                <Text
+                  level={2}
+                  sx={{
+                    color: isToday ? "red.50" : "gray.50",
+                    mb: 4,
+                  }}
                 >
-                  <h3 className="text-xl font-bold">{entry.title}</h3>
-                  <p>{`${entry.body.slice(0, 25)}...`}</p>
-                </NavLink>
-              ))
-            ) : (
-              <p className="mt-6 text-2xl text-zinc-400">No entries found.</p>
-            )} */}
-          </section>
-        </div>
-      </div>
-    </div>
+                  {format(day, "d")}
+                </Text>
+              </time>
+              {events
+                .filter((event) => {
+                  try {
+                    return (
+                      parseISO(format(event.start, "yyyy-MM-dd")) ===
+                      parseISO(formatDateToYYYYMMDD(day))
+                    );
+                  } catch (error) {
+                    console.error("Error formatting date:", error);
+                    return false;
+                  }
+                })
+                .map((event) => (
+                  <Box key={event.id.toString()}>{event.name}</Box>
+                ))}
+            </Box>
+          );
+        })}
+      </Box>
+    </Box>
   );
 }

@@ -8,6 +8,8 @@ export default (mode: modes): SystemStyleObject => ({
   'html, body, #root': {
     height: '100%',
     fontFamily: 'default',
+    padding: 0,
+    margin: 0,
     color: mode === modes.dark ? 'gray.20' : 'gray.60',
   },
   'p, h1, h2, h3, h4, h5, h6, span, div': {
