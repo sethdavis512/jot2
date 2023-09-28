@@ -23,12 +23,12 @@ import ChevronFilledRight from "../icons/ChevronFilledRight";
 import Rule from "../Rule";
 import { json, type LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { findManyDocuments } from "~/models/document.server";
+import { getEvents } from "~/models/event.server";
 
 const colStart = ["", "2", "3", "4", "5", "6", "7"];
 
 export const loader: LoaderFunction = async () => {
-  const allEvents = await findManyDocuments();
+  const allEvents = await getEvents();
   return json({ events: allEvents });
 };
 
@@ -75,7 +75,7 @@ export default function CalendarIndexRoute({
 
   const { events } = useLoaderData();
 
-  console.log(events);
+  // console.log(events);
 
   {
     events.map(
@@ -86,10 +86,6 @@ export default function CalendarIndexRoute({
       )
     );
   }
-
-  // const dayEvents = data.events.filter((event) =>
-  //   isSameDay(parseISO(event.createdAt), day)
-  // );
 
   return (
     <Box
@@ -177,26 +173,29 @@ export default function CalendarIndexRoute({
       <Box
         sx={{
           display: "grid",
-          // height: "100%",
           flex: "1",
-          gridTemplateColumns: "repeat(7, 1fr)",
+          gridTemplateColumns: "repeat(7, minmax(0, 1fr))",
+          // gridTemplateRows: "minmax(0, 1fr)",
           alignItems: "stretch",
+          overflow: "hidden",
         }}
       >
         {days.map((day, dayIdx) => {
           const isToday =
-            formatDateToYYYYMMDD(day) === formatDateToYYYYMMDD(today);
-
+            parseISO(formatDateToYYYYMMDD(day)) ===
+            parseISO(formatDateToYYYYMMDD(today));
           return (
             <Box
               key={day.toString()}
-              onClick={() => setSelectedDay(day)}
+              // onClick={() => setSelectedDay(day)}
               sx={(theme) => ({
                 gridColumnStart: dayIdx === 0 && colStart[getDay(day)],
                 p: 4,
                 borderWidth: 0,
+                minHeight: 0,
                 marginRight: "1px",
                 marginBottom: "1px",
+                overflow: "hidden",
                 boxShadow: `0 -.875rem 0 -.8125rem ${theme.colors.gray[5]}, 0.875rem 0 0 -.8125rem ${theme.colors.gray[5]}, 0 0.875rem 0 -.8125rem ${theme.colors.gray[5]}, -.875rem 0 0 -.8125rem ${theme.colors.gray[5]}`,
               })}
             >
@@ -213,18 +212,21 @@ export default function CalendarIndexRoute({
               </time>
               {events
                 .filter((event) => {
-                  try {
-                    return (
-                      parseISO(format(event.start, "yyyy-MM-dd")) ===
-                      parseISO(formatDateToYYYYMMDD(day))
-                    );
-                  } catch (error) {
-                    console.error("Error formatting date:", error);
-                    return false;
-                  }
+                  return isSameDay(parseISO(event.start), day);
                 })
                 .map((event) => (
-                  <Box key={event.id.toString()}>{event.name}</Box>
+                  <Box
+                    key={event.id.toString()}
+                    sx={{
+                      py: 2,
+                      px: 4,
+                      m: 4,
+                      backgroundColor: "blue.5",
+                      borderRadius: 3,
+                    }}
+                  >
+                    <Text level={2}>{event.name}</Text>
+                  </Box>
                 ))}
             </Box>
           );
