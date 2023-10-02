@@ -10,7 +10,7 @@ interface DefaultLayoutProps {
 
 export default function DefaultLayout({ children }: DefaultLayoutProps) {
   return (
-    <Box sx={{ height: "100%" }}>
+    <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <AppHeader />
       <Box
         sx={{

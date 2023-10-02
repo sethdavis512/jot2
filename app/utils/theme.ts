@@ -1,4 +1,4 @@
-import { Theme as StyledSystemTheme } from '@styled-system/css';
+import { type Theme as StyledSystemTheme } from '@styled-system/css';
 
 const makeTheme = <T extends StyledSystemTheme>(t: T) => t;
 const theme = makeTheme({

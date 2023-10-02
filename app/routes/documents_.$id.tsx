@@ -10,8 +10,10 @@ import { getDocumentById, updateDocument } from "~/models/document.server";
 export const action: ActionFunction = async ({ request, params }) => {
   const form = await request.formData();
   const content = form.get("content");
+  const name = form.get("name");
 
   await updateDocument(params.id as string, {
+    name,
     content,
   });
 
@@ -29,8 +31,19 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export default function DocumentDetailRoute() {
   const data = useLoaderData<typeof loader>();
 
+  console.log(data.document.createdAt);
+
   return (
     <div className="">
+      <Editor
+        editorValue={[
+          {
+            type: "heading-one",
+            children: [{ text: data.document.name }],
+          },
+        ]}
+      />
+      <hr />
       <Editor
         editorValue={
           JSON.parse(data.document.content) || [

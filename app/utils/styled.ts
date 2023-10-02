@@ -1,8 +1,8 @@
-import { css, SystemStyleObject } from '@styled-system/css';
-import { CSSObject } from '@emotion/styled';
-import { ElementType } from 'react';
+import { css, type SystemStyleObject } from '@styled-system/css';
+import { type CSSObject } from '@emotion/styled';
+import { type ElementType } from 'react';
 
-import { Theme } from '../utils/theme';
+import { type Theme } from '../utils/theme';
 
 export interface StyleProps {
   as?: ElementType;

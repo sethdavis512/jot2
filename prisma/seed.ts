@@ -5,6 +5,16 @@ import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
 
+// @ts-ignore
+function randomDate(start, end, startHour, endHour) {
+  var date = new Date(+start + Math.random() * (end - start));
+  var hour = startHour + Math.random() * (endHour - startHour) | 0;
+  date.setHours(hour);
+  return date;
+}
+
+// randomDate(new Date(2023, 0, 1), new Date(), 0, 24)
+
 async function seedDatabase() {
     try {
         // Read the JSON data file
@@ -80,12 +90,17 @@ async function seedDatabase() {
 
         // Create events from the JSON dataset
         for (const eventData of jsonData.events) {
+            const randomStart = randomDate(new Date(2023, 0, 1), new Date(2024, 0, 1), 0, 24);
+            console.log("randomStart: " + randomStart);
+            const randomEnd = new Date(randomStart.setHours(randomStart.getHours() + 1));
+            console.log("randomEnd: " + randomEnd);
             await prisma.event.create({
                 data: {
                     name: eventData.name,
                     history: eventData.history,
-                    start: new Date(),
-                    end: new Date()
+                    start: randomStart,
+                    // @ts-ignore
+                    end: randomEnd,
                     // Add more event-related fields here
                 }
             });

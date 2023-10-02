@@ -2,18 +2,13 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { useLoaderData } from "@remix-run/react";
-// import styled from "styled-components";
+import styled from "styled-components";
 
 import { json } from "@remix-run/node";
 import { getEvents } from "~/models/event.server";
 import Box from "../components/Box";
 import Calendar from "../components/Calendar";
-
-// const Box = styled("div")`
-//   font-family: system-ui, sans-serif;
-//   line-height: 1.4;
-//   /* background-color: wheat; */
-// `;
+// import Datepicker from "../components/Datepicker";
 
 export const loader = async () => {
   return json({
@@ -38,8 +33,11 @@ export default function CalendarRoute() {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <>
+      {/* <Box sx={{ width: "100%", height: "100%" }}> */}
+      {/* <Datepicker data={eventData.events} /> */}
       <Calendar
+        // sx={{ width: "100%" }}
         // plugins={[dayGridPlugin, interactionPlugin]}
         // initialView="dayGridMonth"
         // eventClick={handleEventClick}
@@ -47,6 +45,7 @@ export default function CalendarRoute() {
         // events={eventData.events}
         data={eventData.events}
       />
-    </Box>
+      {/* </Box> */}
+    </>
   );
 }
