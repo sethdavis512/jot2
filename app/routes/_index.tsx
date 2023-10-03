@@ -29,6 +29,11 @@ export const action: ActionFunction = async ({ request }) => {
     await updateBlock(blockId, {
       content,
     });
+  } else {
+    await createBlock({
+      content,
+      userId: "651b6f52caa34f49cb6dd260",
+    });
   }
 
   return null;
