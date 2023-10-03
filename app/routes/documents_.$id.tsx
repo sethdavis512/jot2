@@ -12,7 +12,12 @@ export const action: ActionFunction = async ({ request, params }) => {
   const content = form.get("content");
   const name = form.get("name");
 
-  await updateDocument(params.id as string, {
+  //   await updateDocument(params.id as string, {
+  //     name,
+  //     content,
+  //   });
+
+  console.log("\nfrom doc id route", {
     name,
     content,
   });
@@ -31,7 +36,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export default function DocumentDetailRoute() {
   const data = useLoaderData<typeof loader>();
 
-  console.log(data.document.createdAt);
+  //   console.log(data.document.createdAt);
 
   return (
     <div className="">

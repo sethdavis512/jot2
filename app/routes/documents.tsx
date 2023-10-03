@@ -1,6 +1,8 @@
 import type { Document } from "@prisma/client";
-import { json, type LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
+import Editor from "~/components/Editor";
 import { findManyDocuments } from "~/models/document.server";
 
 export const loader: LoaderFunction = async () => {

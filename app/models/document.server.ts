@@ -7,8 +7,7 @@ export function createDocument({ content }: Pick<Document, "content">) {
 
   return prisma.document.create({
     data: {
-      name: name ||
-      [
+      name: "my cool name" || [
         {
           type: "heading-one",
           children: [{ text: today.toDateString() as string }],

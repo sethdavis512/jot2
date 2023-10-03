@@ -133,9 +133,10 @@ const StyledEditable = Box.withComponent(Editable);
 
 interface EditorProps {
   editorValue: Descendant[];
+  blockId: string;
 }
 
-const Editor = ({ editorValue }: EditorProps): JSX.Element => {
+const Editor = ({ editorValue, blockId }: EditorProps): JSX.Element => {
   const editorFetcher = useFetcher();
 
   const editor = useMemo(() => withReact(withHistory(createEditor())), []);
@@ -163,7 +164,9 @@ const Editor = ({ editorValue }: EditorProps): JSX.Element => {
   const handleSlateOnChange = debounce((value: Descendant[]) => {
     editorFetcher.submit(
       {
+        name: "Jamba Juice",
         content: JSON.stringify(value),
+        blockId: blockId ?? "",
       },
       { method: "post" }
     );
