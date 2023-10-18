@@ -7,8 +7,7 @@ export function createDocument({ content }: Pick<Document, "content">) {
 
   return prisma.document.create({
     data: {
-      name: name ||
-      [
+      name: "my cool name" || [
         {
           type: "heading-one",
           children: [{ text: today.toDateString() as string }],
@@ -23,11 +22,24 @@ export function createDocument({ content }: Pick<Document, "content">) {
 export function getDocumentById(id: string) {
   return prisma.document.findUnique({
     where: { id },
+    select: {
+      tags: true,
+      categories: true,
+      author: true,
+      blocks: true,
+      blockOrder: true,
+    },
+  });
+}
+
+export function getDocumentsByUserId(userId: string) {
+  return prisma.document.findMany({
+    where: { authorId: userId },
     include: {
       tags: true,
-      Category: true,
+      categories: true,
       author: true,
-      Block: true,
+      blocks: true,
     },
   });
 }
@@ -37,9 +49,9 @@ export function findManyDocuments() {
   return prisma.document.findMany({
     include: {
       tags: true,
-      Category: true,
+      categories: true,
       author: true,
-      Block: true,
+      blocks: true,
     },
   });
 }

@@ -73,6 +73,7 @@ const HOTKEYS = {
   "mod+opt+3": { type: "block", modifier: "heading-three" },
   "mod+shift+7": { type: "block", modifier: "numbered-list" },
   "mod+shift+8": { type: "block", modifier: "bulleted-list" },
+  "mod+return": { type: "action", modifier: "new-block" },
 };
 
 const LIST_TYPES = ["numbered-list", "bulleted-list"];
@@ -133,9 +134,10 @@ const StyledEditable = Box.withComponent(Editable);
 
 interface EditorProps {
   editorValue: Descendant[];
+  blockId: string;
 }
 
-const Editor = ({ editorValue }: EditorProps): JSX.Element => {
+const Editor = ({ editorValue, blockId }: EditorProps): JSX.Element => {
   const editorFetcher = useFetcher();
 
   const editor = useMemo(() => withReact(withHistory(createEditor())), []);
@@ -163,7 +165,9 @@ const Editor = ({ editorValue }: EditorProps): JSX.Element => {
   const handleSlateOnChange = debounce((value: Descendant[]) => {
     editorFetcher.submit(
       {
+        name: "Jamba Juice",
         content: JSON.stringify(value),
+        blockId: blockId ?? "",
       },
       { method: "post" }
     );
@@ -199,6 +203,28 @@ const Editor = ({ editorValue }: EditorProps): JSX.Element => {
                 // @ts-ignore
                 const mark = HOTKEYS[hotkey];
                 toggleBlock(editor, mark.modifier);
+              }
+
+              // @ts-ignore
+              if (HOTKEYS[hotkey] && HOTKEYS[hotkey].type === "action") {
+                // @ts-ignore
+                console.log(HOTKEYS[hotkey], HOTKEYS[hotkey].type === "action");
+
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                editorFetcher.submit(
+                  {
+                    name: "Jamba Juice",
+                    content: JSON.stringify([
+                      {
+                        type: "paragraph",
+                        children: [{ text: "New" }],
+                      },
+                    ]),
+                    blockId: "", // Don't send ID, create new block
+                  },
+                  { method: "post" }
+                );
               }
             }
           });

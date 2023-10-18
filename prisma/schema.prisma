@@ -58,12 +58,12 @@ model Document {
     author         User?      @relation(fields: [authorId], references: [id])
     authorId       String?    @db.ObjectId
     blocks         Block[]
+    blockOrder     String[]
 }
 
 enum DocType {
     Note
     Page
-    Post
 }
 
 // MDX file?
