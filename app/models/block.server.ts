@@ -4,7 +4,8 @@ import { prisma } from "~/utils/db.server";
 export function createBlock({
   content,
   userId,
-}: Pick<Block, "content"> & {
+  documentId,
+}: Pick<Block, "content" | "documentId"> & {
   userId: User["id"];
 }) {
   return prisma.block.create({
@@ -15,6 +16,11 @@ export function createBlock({
       author: {
         connect: {
           id: userId,
+        },
+      },
+      Document: {
+        connect: {
+          id: documentId as string,
         },
       },
     },

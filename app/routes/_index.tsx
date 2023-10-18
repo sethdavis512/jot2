@@ -11,6 +11,7 @@ import { useLoaderData } from "@remix-run/react";
 import { Block } from "@prisma/client";
 import { Descendant } from "slate";
 import Box from "~/components/Box";
+import { getDocumentsByUserId } from "~/models/document.server";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -32,7 +33,7 @@ export const action: ActionFunction = async ({ request }) => {
   } else {
     await createBlock({
       content,
-      userId: "651b6f52caa34f49cb6dd260",
+      userId: "652f43da7c5fcc56eda84685",
     });
   }
 
@@ -40,33 +41,28 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export const loader: LoaderFunction = async () => {
-  //   await createBlock({
-  //     content: "",
-  //     userId: "651b6f52caa34f49cb6dd260",
-  //   });
+  const allDocuments = await getDocumentsByUserId("652f43da7c5fcc56eda84685");
 
-  const allBlocks = await getBlocks({ userId: "651b6f52caa34f49cb6dd260" });
-
-  return json({ allBlocks });
+  return json({ allDocuments });
 };
 
 export default function Index() {
-  const { allBlocks } = useLoaderData();
+  const { allDocuments } = useLoaderData();
   const today = new Date();
   const todayFormatted = formatDateToYYYYMMDD(today);
 
-  console.log({ allBlocks });
+  console.log({ allDocuments });
 
   return (
     <>
-      {allBlocks.map((block: Block) => (
+      {allDocuments.map((document: Document) => (
         <Box
-          key={block.id}
+          key={document.id}
           sx={{
             border: `1px solid black`,
           }}
         >
-          <Editor
+          {/* <Editor
             blockId={block.id}
             editorValue={
               block.content
@@ -78,7 +74,8 @@ export default function Index() {
                     },
                   ]
             }
-          />
+          /> */}
+          {JSON.stringify(document, null, 4)}
         </Box>
       ))}
     </>

@@ -217,8 +217,8 @@ const Editor = ({ editorValue, blockId }: EditorProps): JSX.Element => {
                     name: "Jamba Juice",
                     content: JSON.stringify([
                       {
-                        type: "heading-one",
-                        children: [{ text: "" }],
+                        type: "paragraph",
+                        children: [{ text: "New" }],
                       },
                     ]),
                     blockId: "", // Don't send ID, create new block
