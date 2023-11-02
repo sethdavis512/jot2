@@ -1,12 +1,10 @@
-import type { Block } from "@prisma/client";
 import {
   type ActionFunction,
   json,
   type LoaderFunction,
 } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import Box from "~/components/Box";
-import Editor from "~/components/Editor";
+import Document from "~/components/Document";
 import { getDocumentById } from "~/models/document.server";
 import { createBlock, updateBlock } from "~/models/block.server";
 
@@ -53,31 +51,5 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export default function DocumentDetailRoute() {
   const { listOfBlocks } = useLoaderData<typeof loader>();
 
-  return (
-    <>
-      {listOfBlocks.map((block: Block) => (
-        <Box
-          key={block.id}
-          sx={{
-            border: `1px solid black`,
-          }}
-        >
-          <Editor
-            blockId={block.id}
-            editorValue={
-              block.content
-                ? JSON.parse(block.content)
-                : [
-                    {
-                      type: "heading-one",
-                      children: [{ text: "todayFormatted" }],
-                    },
-                  ]
-            }
-          />
-          {/* {JSON.stringify(document, null, 4)} */}
-        </Box>
-      ))}
-    </>
-  );
+  return <Document blocks={listOfBlocks} />;
 }

@@ -4,14 +4,11 @@ import {
   type LoaderFunction,
   type V2_MetaFunction,
 } from "@remix-run/node";
-import Editor from "../components/Editor";
 import { createBlock, getBlocks, updateBlock } from "~/models/block.server";
 import format from "date-fns/format";
 import { useLoaderData } from "@remix-run/react";
-import { Block } from "@prisma/client";
-import { Descendant } from "slate";
-import Box from "~/components/Box";
 import { getDocumentsByUserId } from "~/models/document.server";
+import Document from "~/components/Document";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -56,27 +53,10 @@ export default function Index() {
   return (
     <>
       {allDocuments.map((document: Document) => (
-        <Box
-          key={document.id}
-          sx={{
-            border: `1px solid black`,
-          }}
-        >
-          {/* <Editor
-            blockId={block.id}
-            editorValue={
-              block.content
-                ? JSON.parse(block.content)
-                : [
-                    {
-                      type: "heading-one",
-                      children: [{ text: todayFormatted }],
-                    },
-                  ]
-            }
-          /> */}
-          {JSON.stringify(document, null, 4)}
-        </Box>
+        <>
+          <h3>{document.id}</h3>
+          <Document blocks={document.blocks} key={document.id} />
+        </>
       ))}
     </>
   );
