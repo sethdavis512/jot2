@@ -2,7 +2,15 @@ import type { Document } from "@prisma/client";
 import { prisma } from "~/utils/db.server";
 
 // Create a new document
-export function createDocument({ content }: Pick<Document, "content">) {
+export function createDocument({ name }: Pick<Document, "name">) {
+  return prisma.document.create({
+    data: {
+      name,
+    },
+  });
+}
+
+export function createTodaysDocument({ name }: Pick<Document, "name">) {
   const today = new Date();
 
   return prisma.document.create({
@@ -13,7 +21,6 @@ export function createDocument({ content }: Pick<Document, "content">) {
           children: [{ text: today.toDateString() as string }],
         },
       ],
-      content,
     },
   });
 }
@@ -45,7 +52,7 @@ export function getDocumentsByUserId(userId: string) {
 }
 
 // Retrieve multiple documents
-export function findManyDocuments() {
+export function getAllDocuments() {
   return prisma.document.findMany({
     include: {
       tags: true,
@@ -57,10 +64,32 @@ export function findManyDocuments() {
 }
 
 // Update a document by ID
-export function updateDocument(id: string, data: any) {
+export function updateDocument({
+  id,
+  blockOrder,
+  name,
+}: {
+  id: string;
+  name: string;
+  blockOrder: string[];
+}) {
   return prisma.document.update({
     where: { id },
-    data,
+    data: {
+      name,
+      blockOrder,
+    },
+  });
+}
+
+export function upsertDocument({ id, name }: { id: string; name: string }) {
+  return prisma.document.upsert({
+    where: { id },
+    update: {},
+    create: {
+      id,
+      name,
+    },
   });
 }
 

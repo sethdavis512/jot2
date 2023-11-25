@@ -10,20 +10,7 @@ import { createBlock, updateBlock } from "~/models/block.server";
 
 export const action: ActionFunction = async ({ request, params }) => {
   const form = await request.formData();
-  const content = form.get("content") as string;
-  const blockId = form.get("blockId") as any;
-
-  if (blockId) {
-    await updateBlock(blockId, {
-      content,
-    });
-  } else {
-    await createBlock({
-      content,
-      userId: "652f43da7c5fcc56eda84685",
-      documentId: params.id as string,
-    });
-  }
+  upsertDocument(form);
 
   return null;
 };

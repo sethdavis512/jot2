@@ -6,7 +6,6 @@ import {
   Editor as SlateEditor,
   Element,
   Transforms,
-  Node,
 } from "slate";
 import { Slate, Editable, withReact, type ReactEditor } from "slate-react";
 import { withHistory } from "slate-history";
@@ -135,9 +134,16 @@ const StyledEditable = Box.withComponent(Editable);
 interface EditorProps {
   editorValue: Descendant[];
   blockId: string;
+  documentId: string;
+  documentOrder: string[];
 }
 
-const Editor = ({ editorValue, blockId }: EditorProps): JSX.Element => {
+const Editor = ({
+  editorValue,
+  blockId,
+  documentId,
+  documentOrder,
+}: EditorProps): JSX.Element => {
   const editorFetcher = useFetcher();
 
   const editor = useMemo(() => withReact(withHistory(createEditor())), []);
@@ -165,9 +171,10 @@ const Editor = ({ editorValue, blockId }: EditorProps): JSX.Element => {
   const handleSlateOnChange = debounce((value: Descendant[]) => {
     editorFetcher.submit(
       {
-        name: "Jamba Juice",
         content: JSON.stringify(value),
         blockId: blockId ?? "",
+        intent: "updateBlock",
+        documentId,
       },
       { method: "post" }
     );
@@ -214,14 +221,14 @@ const Editor = ({ editorValue, blockId }: EditorProps): JSX.Element => {
                 // @ts-ignore
                 editorFetcher.submit(
                   {
-                    name: "Jamba Juice",
                     content: JSON.stringify([
                       {
                         type: "paragraph",
                         children: [{ text: "New" }],
                       },
                     ]),
-                    blockId: "", // Don't send ID, create new block
+                    intent: "createBlock",
+                    documentId,
                   },
                   { method: "post" }
                 );

@@ -2,11 +2,10 @@ import type { Document } from "@prisma/client";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import Editor from "~/components/Editor";
-import { findManyDocuments } from "~/models/document.server";
+import { getAllDocuments } from "~/models/document.server";
 
 export const loader: LoaderFunction = async () => {
-  const allDocuments = await findManyDocuments();
+  const allDocuments = await getAllDocuments();
   return json({ documents: allDocuments });
 };
 
