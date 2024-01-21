@@ -20,6 +20,31 @@ datasource db {
 // history        String     @default("tbd") // Array
 // tags           Tag[]
 
+model Entity {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime @default(now())
+}
+
+model EntityType {
+    id        String        @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime      @default(now())
+    content   ContentType[]
+}
+
+model ContentType {
+    id           String      @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt    DateTime    @default(now())
+    EntityType   EntityType? @relation(fields: [entityTypeId], references: [id])
+    entityTypeId String?     @db.ObjectId
+}
+
+enum DataType {
+    Array
+    Image
+    Boolean
+    String
+}
+
 model User {
     id        String     @id @default(auto()) @map("_id") @db.ObjectId
     createdAt DateTime   @default(now())
@@ -45,7 +70,6 @@ model Document {
     history        String     @default("tbd") // Array
     tags           Tag[]
     // – – – –
-    content        String?
     docType        DocType    @default(Note)
     categories     Category[]
     published      Boolean    @default(false)
@@ -71,7 +95,6 @@ model Block {
     id         String    @id @default(auto()) @map("_id") @db.ObjectId
     createdAt  DateTime  @default(now())
     updatedAt  DateTime  @updatedAt
-    name       String
     history    String    @default("tbd") // Array
     tags       Tag[]
     // – – – –

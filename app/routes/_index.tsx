@@ -4,14 +4,12 @@ import {
   type LoaderFunction,
   type V2_MetaFunction,
 } from "@remix-run/node";
-import Editor from "../components/Editor";
-import { createBlock, getBlocks, updateBlock } from "~/models/block.server";
 import format from "date-fns/format";
 import { useLoaderData } from "@remix-run/react";
-import { Block } from "@prisma/client";
-import { Descendant } from "slate";
-import Box from "~/components/Box";
-import { getDocumentsByUserId } from "~/models/document.server";
+import { getDocumentsByUserId, updateDocument } from "~/models/document.server";
+import Document from "~/components/Document";
+import type { Document as DocumentType } from "@prisma/client";
+import { createBlock, updateBlock } from "~/models/block.server";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -23,17 +21,33 @@ const formatDateToYYYYMMDD = (date: Date) => format(date, "yyyy-MM-dd");
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
+  const name = form.get("name") as string;
+  const intent = form.get("intent") as string;
   const content = form.get("content") as string;
   const blockId = form.get("blockId") as string;
+  const documentId = form.get("documentId") as string;
+  const blockOrder = form.get("blockOrder") as string;
 
-  if (blockId) {
-    await updateBlock(blockId, {
-      content,
+  if (intent === "saveDocumentName") {
+    await updateDocument({
+      id: documentId,
+      name,
+      blockOrder: JSON.parse(blockOrder),
     });
-  } else {
+  }
+
+  if (intent === "updateBlock") {
+    await updateBlock({
+      id: blockId,
+      data,
+    });
+  }
+
+  if (intent === "createBlock") {
     await createBlock({
       content,
       userId: "652f43da7c5fcc56eda84685",
+      documentId,
     });
   }
 
@@ -51,32 +65,13 @@ export default function Index() {
   const today = new Date();
   const todayFormatted = formatDateToYYYYMMDD(today);
 
-  console.log({ allDocuments });
-
   return (
     <>
-      {allDocuments.map((document: Document) => (
-        <Box
-          key={document.id}
-          sx={{
-            border: `1px solid black`,
-          }}
-        >
-          {/* <Editor
-            blockId={block.id}
-            editorValue={
-              block.content
-                ? JSON.parse(block.content)
-                : [
-                    {
-                      type: "heading-one",
-                      children: [{ text: todayFormatted }],
-                    },
-                  ]
-            }
-          /> */}
-          {JSON.stringify(document, null, 4)}
-        </Box>
+      {allDocuments.map((document: DocumentType) => (
+        <div key={document.id}>
+          <h3>{document.id}</h3>
+          <Document id={document.id} document={document} />
+        </div>
       ))}
     </>
   );

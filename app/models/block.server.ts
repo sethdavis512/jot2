@@ -12,7 +12,6 @@ export function createBlock({
     data: {
       content,
       history: "tada",
-      name: "test",
       author: {
         connect: {
           id: userId,
@@ -23,6 +22,30 @@ export function createBlock({
           id: documentId as string,
         },
       },
+    },
+  });
+}
+
+export function upsertBlock({
+  id,
+  content,
+  userId,
+  documentId,
+}: {
+  id: string;
+  content: string;
+  userId: string;
+  documentId: string;
+}) {
+  return prisma.block.upsert({
+    where: { id },
+    create: {
+      documentId,
+      content,
+      authorId: userId,
+    },
+    update: {
+      content,
     },
   });
 }
@@ -45,7 +68,7 @@ export function getBlocks({ userId }: { userId: User["id"] }) {
   });
 }
 
-export function updateBlock(id: string, data: Partial<Block>) {
+export function updateBlock({ id, data }: { id: string; data: Block }) {
   return prisma.block.update({
     where: { id },
     data,

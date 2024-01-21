@@ -1,9 +1,8 @@
+import type { InputHTMLAttributes } from "react";
 import { styled } from "styled-components";
 
-interface TextInputProps {
-  id: string;
+interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  name: string;
 }
 
 const InputLabel = styled("label")`
@@ -18,12 +17,30 @@ export default function TextInput({
   id,
   label,
   name,
+  defaultValue,
+  value,
   ...rest
 }: TextInputProps) {
-  return (
+  return label ? (
     <InputLabel>
       {label}
-      <InputField id={id} type="text" name={name} {...rest} />
+      <InputField
+        id={id}
+        type="text"
+        name={name}
+        value={value}
+        defaultValue={defaultValue}
+        {...rest}
+      />
     </InputLabel>
+  ) : (
+    <InputField
+      id={id}
+      type="text"
+      name={name}
+      value={value}
+      defaultValue={defaultValue}
+      {...rest}
+    />
   );
 }
