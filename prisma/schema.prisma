@@ -1,241 +1,56 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// Consider later:
+// File (image, video, audio, pdf, etc.)
+// Tag
+// Recipe
+// Collection
+
 generator client {
     provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "mongodb" //"sqlite"
+    provider = "mongodb"
     url      = env("DATABASE_URL")
 }
-
-// **********************
-// Universal Model fields
-// **********************
-// id             String     @id @default(auto()) @map("_id") @db.ObjectId
-// createdAt      DateTime   @default(now())
-// updatedAt      DateTime   @updatedAt
-// name           String
-// history        String     @default("tbd") // Array
-// tags           Tag[]
 
 model Entity {
     id        String   @id @default(auto()) @map("_id") @db.ObjectId
     createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name      String?
+    history   String   @default("tbd") // Array
+    tags      Tag[]
 }
 
 model EntityType {
-    id        String        @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt DateTime      @default(now())
-    content   ContentType[]
+    id      String        @id @default(auto()) @map("_id") @db.ObjectId
+    content ContentType[]
 }
 
 model ContentType {
     id           String      @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt    DateTime    @default(now())
     EntityType   EntityType? @relation(fields: [entityTypeId], references: [id])
     entityTypeId String?     @db.ObjectId
+    dataType     DataType
 }
 
 enum DataType {
+    EntityObject
+    String
     Array
+    Object
+    Number
+    DateTime
     Image
     Boolean
-    String
 }
 
-model User {
-    id        String     @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt DateTime   @default(now())
-    firstName String
-    lastName  String
-    name      String
-    email     String     @unique
-    Document  Document[]
-    Tag       Tag[]
-    Category  Category[]
-    Event     Event[]
-    Task      Task[]
-    Link      Link[]
-    Block     Block[]
-}
-
-// MDX file
-model Document {
-    id             String     @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt      DateTime   @default(now())
-    updatedAt      DateTime   @updatedAt
-    name           String
-    history        String     @default("tbd") // Array
-    tags           Tag[]
-    // – – – –
-    docType        DocType    @default(Note)
-    categories     Category[]
-    published      Boolean    @default(false)
-    publishedURL   String? // URL
-    heroImage      String? // URL?
-    thumbnailImage String? // URL?
-    publishDate    DateTime?
-    publishUpdated DateTime?
-    views          Int        @default(0)
-    author         User?      @relation(fields: [authorId], references: [id])
-    authorId       String?    @db.ObjectId
-    blocks         Block[]
-    blockOrder     String[]
-}
-
-enum DocType {
-    Note
-    Page
-}
-
-// MDX file?
-model Block {
-    id         String    @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt  DateTime  @default(now())
-    updatedAt  DateTime  @updatedAt
-    history    String    @default("tbd") // Array
-    tags       Tag[]
-    // – – – –
-    content    String?
-    views      Int       @default(0)
-    author     User?     @relation(fields: [authorId], references: [id])
-    authorId   String?   @db.ObjectId
-    Document   Document? @relation(fields: [documentId], references: [id])
-    documentId String?   @db.ObjectId
-}
-
-// JSON file
 model Tag {
-    id         String    @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt  DateTime  @default(now())
-    updatedAt  DateTime  @updatedAt
-    name       String
-    history    String    @default("tbd") // Array
-    // – – – –
-    author     User?     @relation(fields: [authorId], references: [id])
-    authorId   String?   @db.ObjectId
-    Event      Event?    @relation(fields: [eventId], references: [id])
-    eventId    String?   @db.ObjectId
-    Task       Task?     @relation(fields: [taskId], references: [id])
-    taskId     String?   @db.ObjectId
-    Person     Person?   @relation(fields: [personId], references: [id])
-    personId   String?   @db.ObjectId
-    Link       Link?     @relation(fields: [linkId], references: [id])
-    linkId     String?   @db.ObjectId
-    Document   Document? @relation(fields: [documentId], references: [id])
-    documentId String?   @db.ObjectId
-    Block      Block?    @relation(fields: [blockId], references: [id])
-    blockId    String?   @db.ObjectId
-}
-
-// JSON file
-model Category {
-    id         String    @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt  DateTime  @default(now())
-    updatedAt  DateTime  @updatedAt
-    name       String
-    history    String    @default("tbd") // Array
-    // – – – –
-    author     User?     @relation(fields: [authorId], references: [id])
-    authorId   String?   @db.ObjectId
-    Event      Event?    @relation(fields: [eventId], references: [id])
-    eventId    String?   @db.ObjectId
-    Document   Document? @relation(fields: [documentId], references: [id])
-    documentId String?   @db.ObjectId
-}
-
-// DB only?
-model Event {
-    id        String     @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt DateTime   @default(now())
-    updatedAt DateTime   @updatedAt
-    name      String
-    history   String     @default("tbd") // Array
-    tags      Tag[]
-    // – – – –
-    content   String?
-    allDay    Boolean    @default(false)
-    start     DateTime
-    end       DateTime
-    EventType EventType  @default(Event)
-    image     String? // URL?
-    Category  Category[]
-    User      User?      @relation(fields: [userId], references: [id])
-    userId    String?    @db.ObjectId
-    Task      Task?      @relation(fields: [taskId], references: [id])
-    taskId    String?    @db.ObjectId
-}
-
-enum EventType {
-    Event
-    Reminder
-}
-
-// MDX file?
-model Task {
-    id         String     @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt  DateTime   @default(now())
-    updatedAt  DateTime   @updatedAt
-    name       String
-    history    String     @default("tbd") // Array
-    tags       Tag[]
-    // – – – –
-    content    String?
-    TaskStatus TaskStatus @default(todo)
-    dueDate    DateTime?
-    User       User?      @relation(fields: [userId], references: [id])
-    userId     String?    @db.ObjectId
-    Event      Event[]
-}
-
-enum TaskStatus {
-    todo
-    doing
-    done
-}
-
-// MDX file
-model Link {
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    name      String
-    history   String   @default("tbd") // Array
-    tags      Tag[]
-    // – – – –
-    content   String?
-    url       String // URL
-    category  String? // Array
-    image     String? // URL?
-    published Boolean  @default(false)
-    User      User?    @relation(fields: [userId], references: [id])
-    userId    String?  @db.ObjectId
-}
-
-// MDX file
-model Person {
-    id              String   @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt       DateTime @default(now())
-    updatedAt       DateTime @updatedAt
-    name            String
-    history         String   @default("tbd") // Array
-    tags            Tag[]
-    content         String?
-    firstName       String
-    lastName        String
-    phone           String?  @unique // phone number
-    email           String?  @unique // email
-    address         Address?
-    relatedPersonId String?  @unique @db.ObjectId
-    relatedPerson   Person?  @relation("relatedPerson", fields: [relatedPersonId], references: [id], onUpdate: NoAction, onDelete: NoAction)
-    relatedPeople   Person[] @relation("relatedPerson")
-}
-
-type Address {
-    street String
-    city   String
-    state  String
-    zip    String
+    id       String  @id @default(auto()) @map("_id") @db.ObjectId
+    name     String
+    Entity   Entity? @relation(fields: [entityId], references: [id])
+    entityId String? @db.ObjectId
 }
