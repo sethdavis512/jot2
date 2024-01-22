@@ -1,0 +1,91 @@
+{
+  "CoreModels": {
+    "User": {
+      "firstName": "String?",
+      "lastName": "String?",
+      "name": "String?",
+      "email": "String?",
+      "_email_unique": "@unique"
+    },
+    "Page": {
+      "name": "String?",
+      "blocks": "Block[]",
+      "blockOrder": "String[]",
+      "published": "Boolean",
+      "_published_default": "@default(false)",
+      "publishedURL": "String?",
+      "heroImage": "String?",
+      "thumbnailImage": "String?",
+      "publishDate": "DateTime?",
+      "publishUpdated": "DateTime?",
+      "author": "User.id?",
+      "views": "Int",
+      "_views_default": "@default(0)"
+    },
+    "Block": {
+      "pageId": "Page.id",
+      "content": "Object"
+    },
+    "Task": {
+      "content": "String?",
+      "taskStatus": ["todo", "doing", "done"],
+      "_taskStatus_default": "@default(todo)",
+      "dueDate": "DateTime?",
+      "assigned": "User.id?",
+      "event": "Event[]"
+    },
+    "Event": {
+      "name": "String?",
+      "content": "String?",
+      "allDay": "Boolean",
+      "_allDay_default": "@default(false)",
+      "start": "DateTime",
+      "end": "DateTime",
+      "eventType": ["Event", "Reminder"],
+      "_eventType_default": "@default(Event)"
+    },
+    "Link": {
+      "url": "String",
+      "content": "String?",
+      "title": "String?",
+      "favicon": "Image",
+      "featureImage": "Image"
+    },
+    "Human": {
+      "name": "String",
+      "firstName": "String?",
+      "lastName": "String?",
+      "content": "String?",
+      "phone": "String?",
+      "_phone_unique": "@unique",
+      "email": "String?",
+      "_email_unique": "@unique",
+      "address": "Address?",
+      "relatedTo": "Human[]?",
+      "jobTitle": "String?",
+      "employer": "String?"
+    }
+  },
+  "AddonModels": {
+    "Project": {
+      "name": "String",
+      "content": "Object"
+    },
+    "Book": {
+      "title": "String",
+      "author": "String?",
+      "description": "String?",
+      "url": "String?",
+      "isbn": "Number?",
+      "coverImage": "Image?"
+    }
+  },
+  "Type": {
+    "Address": {
+      "street": "String",
+      "city": "String",
+      "state": "String",
+      "zip": "String"
+    }
+  }
+}
